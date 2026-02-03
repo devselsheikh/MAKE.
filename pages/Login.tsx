@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '../components/Button';
@@ -17,7 +16,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Check for Admin Credentials
     if (email === 'shehabdiaa12345@gmail.com' && password === 'BREAD3184_') {
       const adminUser: User = {
         id: 'admin-made',
@@ -35,7 +33,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       return;
     }
 
-    // Standard User Logic (Simulated for MVP)
     const saved = localStorage.getItem('made_user');
     if (saved) {
       onLogin(JSON.parse(saved));
@@ -57,44 +54,44 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-6 selection:bg-[#007AFF]">
-      <div className="max-w-md w-full space-y-12 animate-in">
-        <div className="text-center">
-          <h1 className="grotesk text-6xl tracking-tighter mb-4">MADE</h1>
-          <p className="text-[10px] uppercase tracking-[0.4em] opacity-40 font-black">Proof of work required.</p>
+    <div className="min-h-screen bg-black flex items-center justify-center adaptive-padding selection:bg-[#007AFF]">
+      <div className="max-w-xl w-full space-y-16 md:space-y-24 animate-reveal reveal-active">
+        <div className="text-center space-y-6">
+          <h1 className="syne text-display-lg md:text-display-xl tracking-tighter leading-none">MADE.</h1>
+          <p className="text-step--2 uppercase tracking-[0.6em] opacity-30 font-black">Proof of existence required.</p>
         </div>
         
-        <form onSubmit={handleLogin} className="space-y-8 bg-white/[0.02] border border-white/10 p-12">
-          <div className="space-y-4">
-            <label className="block text-[10px] uppercase font-black tracking-widest opacity-40">Email Address</label>
+        <form onSubmit={handleLogin} className="space-y-12 md:space-y-16 glass p-10 md:p-20 rounded-[2.5rem] md:rounded-[3.5rem] shadow-[0_60px_100px_rgba(0,0,0,0.8)] border-white/5">
+          <div className="space-y-4 md:space-y-6">
+            <label className="block text-step--2 uppercase font-black tracking-[0.4em] opacity-30">Identity URI</label>
             <input 
               type="email"
               required
-              className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none focus:border-[#007AFF] transition-colors font-black tracking-tight"
-              placeholder="you@university.edu"
+              className="w-full bg-transparent border-b border-white/20 py-4 md:py-6 text-step-1 md:text-step-2 outline-none focus:border-[#007AFF] transition-all font-bold tracking-tight"
+              placeholder="id@entity.com"
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
           </div>
 
-          <div className="space-y-4">
-            <label className="block text-[10px] uppercase font-black tracking-widest opacity-40">Security Key</label>
+          <div className="space-y-4 md:space-y-6">
+            <label className="block text-step--2 uppercase font-black tracking-[0.4em] opacity-30">Auth Token</label>
             <input 
               type="password"
-              className="w-full bg-transparent border-b border-white/20 py-4 text-xl outline-none focus:border-[#007AFF] transition-colors font-black tracking-tight"
+              className="w-full bg-transparent border-b border-white/20 py-4 md:py-6 text-step-1 md:text-step-2 outline-none focus:border-[#007AFF] transition-all font-bold tracking-tight"
               placeholder="••••••••"
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
           </div>
 
-          {error && <p className="text-red-500 text-[10px] uppercase font-black tracking-widest text-center">{error}</p>}
+          {error && <p className="text-red-500 text-step--2 uppercase font-black tracking-widest text-center">{error}</p>}
 
-          <Button type="submit" fullWidth className="!py-6">Authorize Entry</Button>
+          <Button type="submit" fullWidth size="lg" className="!py-6 md:!py-8 !rounded-full">Sync Graph</Button>
         </form>
 
-        <p className="text-center text-[10px] uppercase tracking-widest font-black opacity-40">
-          First time? <Link to="/onboarding" className="text-white hover:text-[#007AFF] transition-colors underline decoration-2 underline-offset-4">Join the network</Link>
+        <p className="text-center text-step--2 uppercase tracking-[0.4em] font-black opacity-30">
+          Unregistered? <Link to="/onboarding" className="text-white hover:text-[#00FFD1] transition-colors border-b border-white/10 hover:border-[#00FFD1]">Enter Graph</Link>
         </p>
       </div>
     </div>

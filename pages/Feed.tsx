@@ -30,36 +30,36 @@ const Feed: React.FC<FeedProps> = ({ projects, user, onLogout }) => {
   }, [projects, activeTrack]);
 
   return (
-    <div className="min-h-screen bg-black pt-24 md:pt-32 pb-40 md:pb-64 selection:bg-[#00FFD1] selection:text-black">
+    <div className="min-h-screen bg-black pt-24 md:pt-40 pb-40 md:pb-64 selection:bg-[#00FFD1] selection:text-black">
       <Header userId={user?.id} onLogout={onLogout} />
       
-      <div className="max-w-7xl mx-auto px-5 md:px-12">
-        <header className={`flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-12 mb-16 md:mb-24 transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="space-y-4 md:space-y-6">
-            <h1 className="syne leading-none tracking-tighter">ARENA.</h1>
-            <p className="text-xl md:text-2xl text-white/40 font-medium tracking-tight">Artifacts validated by the network.</p>
+      <div className="max-w-[1920px] mx-auto adaptive-padding">
+        <header className={`flex flex-col md:flex-row justify-between items-start md:items-end gap-10 md:gap-16 mb-20 md:mb-32 transition-all duration-1000 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="space-y-4 md:space-y-8">
+            <h1 className="syne text-display-lg leading-none tracking-tighter">ARENA.</h1>
+            <p className="text-step-0 md:text-step-2 text-white/40 font-medium tracking-tight">Validated architectural artifacts.</p>
           </div>
           {user && (
             <Link to={`/profile/${user.id}`} className="w-full md:w-auto">
-              <Button variant="hyper" className="w-full md:w-auto !rounded-full !px-12 md:!px-16 !py-4 md:!py-6">Submit Proof</Button>
+              <Button variant="hyper" className="w-full md:w-auto !rounded-full !py-5 md:!py-6">Transmit Proof</Button>
             </Link>
           )}
         </header>
 
-        {/* Cinematic Filter Bar with Scroll Fade */}
-        <div className={`relative mb-16 md:mb-20 transition-all duration-1000 delay-200 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
-          <div className="flex overflow-x-auto gap-3 md:gap-4 pb-6 scrollbar-hide border-b border-white/5 scroll-fade-right">
+        {/* Dynamic Category Scroller */}
+        <div className={`relative mb-16 md:mb-24 transition-all duration-1000 delay-200 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="flex overflow-x-auto gap-3 md:gap-6 pb-6 scrollbar-hide border-b border-white/5 scroll-fade-right">
             <button 
               onClick={() => setActiveTrack('All')}
-              className={`px-8 md:px-10 py-3 md:py-4 rounded-full text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-500 whitespace-nowrap ${activeTrack === 'All' ? 'bg-white text-black' : 'bg-white/5 text-white/30 hover:text-white'}`}
+              className={`px-8 md:px-12 py-3 md:py-5 rounded-full text-step--2 md:text-step--1 font-black uppercase tracking-[0.2em] transition-all duration-500 whitespace-nowrap ${activeTrack === 'All' ? 'bg-white text-black' : 'bg-white/5 text-white/30 hover:text-white'}`}
             >
-              All Sectors
+              All Signals
             </button>
             {TRACKS.map(t => (
               <button 
                 key={t.value}
                 onClick={() => setActiveTrack(t.value as Track)}
-                className={`px-8 md:px-10 py-3 md:py-4 rounded-full text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] transition-all duration-500 whitespace-nowrap ${activeTrack === t.value ? 'bg-white text-black' : 'bg-white/5 text-white/30 hover:text-white'}`}
+                className={`px-8 md:px-12 py-3 md:py-5 rounded-full text-step--2 md:text-step--1 font-black uppercase tracking-[0.2em] transition-all duration-500 whitespace-nowrap ${activeTrack === t.value ? 'bg-white text-black' : 'bg-white/5 text-white/30 hover:text-white'}`}
               >
                 {t.label}
               </button>
@@ -67,43 +67,43 @@ const Feed: React.FC<FeedProps> = ({ projects, user, onLogout }) => {
           </div>
         </div>
 
-        {/* High Fidelity Feed Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+        {/* Fluid Grid Layout: Optimized for Mobile up to 4K */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
           {filteredProjects.map((project, idx) => (
             <Link 
               to={`/project/${project.id}`} 
               key={project.id} 
-              className={`group transition-all duration-1000`}
+              className={`group transition-all duration-1000 h-full`}
               style={{ transitionDelay: `${idx * 100}ms`, opacity: mounted ? 1 : 0, transform: mounted ? 'translateY(0)' : 'translateY(20px)' }}
             >
-              <div className="glass p-8 md:p-12 rounded-[32px] md:rounded-[40px] hover:bg-white/[0.06] hover:scale-[1.02] transition-all duration-700 h-full flex flex-col justify-between group-active:scale-[0.98]">
-                <div className="space-y-6 md:space-y-10">
+              <div className="glass p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] hover:bg-white/[0.04] hover:scale-[1.02] transition-all duration-700 h-full flex flex-col justify-between group-active:scale-[0.98]">
+                <div className="space-y-8 md:space-y-12">
                   <div className="flex justify-between items-start">
-                    <span className="text-[9px] font-black text-[#00FFD1] uppercase tracking-[0.4em]">{project.userTrack}</span>
+                    <span className="text-step--2 font-black text-[#00FFD1] uppercase tracking-[0.4em]">{project.userTrack}</span>
                     <SignalGauge score={calculateSignalScore({ id: project.userId }, projects)} size="sm" />
                   </div>
-                  <h3 className="syne text-2xl md:text-4xl group-hover:text-[#00FFD1] transition-colors duration-700 leading-[1.1] tracking-tighter">{project.title}</h3>
-                  <p className="text-base md:text-lg text-white/30 line-clamp-3 leading-relaxed font-medium group-hover:text-white/50 transition-colors duration-700">
+                  <h3 className="syne text-step-1 md:text-step-3 group-hover:text-[#00FFD1] transition-colors duration-700 leading-tight tracking-tighter">{project.title}</h3>
+                  <p className="text-step--1 md:text-step-0 text-white/30 line-clamp-3 leading-relaxed font-medium group-hover:text-white/50 transition-colors duration-700">
                     {project.problem}
                   </p>
                 </div>
 
-                <div className="pt-8 md:pt-12 flex justify-between items-center border-t border-white/5 mt-8 md:mt-12">
+                <div className="pt-8 md:pt-12 flex justify-between items-center border-t border-white/5 mt-10 md:mt-16">
                   <div className="flex items-center gap-3 md:gap-4">
-                    <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[10px] md:text-[11px] font-black uppercase text-white/40">
+                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-step--2 font-black uppercase text-white/40">
                       {project.userName.charAt(0)}
                     </div>
-                    <span className="text-xs md:text-sm font-bold text-white/50 group-hover:text-white transition-colors">{project.userName}</span>
+                    <span className="text-step--1 font-bold text-white/50 group-hover:text-white transition-colors">{project.userName}</span>
                   </div>
-                  <span className="text-[9px] md:text-[10px] font-black text-white/20 uppercase tracking-[0.2em]">{project.comments.length} Audits</span>
+                  <span className="text-step--2 font-black text-white/20 uppercase tracking-[0.2em]">{project.comments.length} AUDITS</span>
                 </div>
               </div>
             </Link>
           ))}
           {filteredProjects.length === 0 && (
-            <div className="col-span-full py-40 md:py-64 text-center space-y-6 md:space-y-8 animate-reveal">
-              <h4 className="syne text-4xl md:text-7xl text-white/5">VACUUM.</h4>
-              <p className="text-white/20 text-lg md:text-xl font-medium tracking-tight">No signals detected in this sector.</p>
+            <div className="col-span-full py-48 md:py-64 text-center space-y-8 animate-reveal">
+              <h4 className="syne text-step-5 lg:text-[10rem] text-white/5">VACUUM.</h4>
+              <p className="text-white/20 text-step-1 md:text-step-3 font-medium tracking-tight">No signals detected in this sector.</p>
             </div>
           )}
         </div>

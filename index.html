@@ -12,11 +12,29 @@
         :root {
             --accent: #00FFD1;
             --bg: #000000;
+            
+            /* Fluid Typography Scale: Min 14px, Max 20px base */
+            --step--2: clamp(0.60rem, 0.55rem + 0.25vw, 0.80rem);
+            --step--1: clamp(0.75rem, 0.68rem + 0.35vw, 1.00rem);
+            --step-0: clamp(0.94rem, 0.83rem + 0.54vw, 1.25rem);
+            --step-1: clamp(1.17rem, 1.01rem + 0.81vw, 1.56rem);
+            --step-2: clamp(1.46rem, 1.22rem + 1.21vw, 1.95rem);
+            --step-3: clamp(1.83rem, 1.48rem + 1.76vw, 2.44rem);
+            --step-4: clamp(2.29rem, 1.79rem + 2.52vw, 3.05rem);
+            --step-5: clamp(2.86rem, 2.16rem + 3.52vw, 3.82rem);
+            
+            /* Dynamic Display Scale for Heros */
+            --display-xl: clamp(2.8rem, 12vw, 14rem);
+            --display-lg: clamp(2.4rem, 9vw, 9rem);
+            --display-md: clamp(2rem, 7vw, 6rem);
         }
+
         html {
             scroll-behavior: smooth;
             background-color: var(--bg);
+            font-size: 16px;
         }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
@@ -25,17 +43,44 @@
             overflow-x: hidden;
             line-height: 1.5;
             width: 100vw;
+            margin: 0;
+            padding: 0;
         }
-        /* Mobile Input Zoom Fix */
+
+        /* Fluid Spacing Utilities */
+        .adaptive-padding {
+            padding-left: clamp(1.25rem, 6vw, 10rem);
+            padding-right: clamp(1.25rem, 6vw, 10rem);
+        }
+        
+        .adaptive-gap {
+            gap: clamp(1rem, 4vw, 4rem);
+        }
+
+        /* Typography Classes */
+        .text-step--2 { font-size: var(--step--2); }
+        .text-step--1 { font-size: var(--step--1); }
+        .text-step-0 { font-size: var(--step-0); }
+        .text-step-1 { font-size: var(--step-1); }
+        .text-step-2 { font-size: var(--step-2); }
+        .text-step-3 { font-size: var(--step-3); }
+        .text-step-4 { font-size: var(--step-4); }
+        .text-step-5 { font-size: var(--step-5); }
+        .text-display-xl { font-size: var(--display-xl); line-height: 0.82; }
+        .text-display-lg { font-size: var(--display-lg); line-height: 0.88; }
+        .text-display-md { font-size: var(--display-md); line-height: 0.92; }
+
         input, textarea, select {
-            font-size: 16px !important;
+            font-size: 16px !important; /* Prevents mobile browser auto-zoom */
         }
+
         .syne {
             font-family: 'Syne', sans-serif;
             font-weight: 800;
             letter-spacing: -0.07em;
             text-transform: uppercase;
         }
+
         .serif-italic {
             font-family: 'Instrument Serif', serif;
             font-style: italic;
@@ -51,6 +96,7 @@
             z-index: 9999;
             animation: grain 8s steps(10) infinite;
         }
+
         @keyframes grain {
           0%, 100% { transform:translate(0, 0); }
           10% { transform:translate(-5%, -10%); }
@@ -60,55 +106,23 @@
           90% { transform:translate(2%, 7%); }
         }
 
-        /* Ambient Mesh Background */
-        .mesh-gradient {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 0% 0%, rgba(0, 255, 209, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 100% 100%, rgba(112, 0, 255, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        /* Choreographed Entrance Animations */
-        @keyframes reveal {
-          from { opacity: 0; transform: translateY(30px) scale(0.99); filter: blur(15px); }
-          to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-        }
-        .reveal {
-          opacity: 0;
-        }
-        .reveal-active {
-          animation: reveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        /* Typography Fluid Scaling - Refined for Mobile */
-        h1 { font-size: clamp(2.2rem, 14vw, 14rem); }
-        h2 { font-size: clamp(1.8rem, 8vw, 7rem); }
-        
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        
-        /* Glass Morphism 2.0 */
+        /* Responsive Glass Morphism */
         .glass {
-            background: rgba(5, 5, 5, 0.4);
+            background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
-            border: 0.5px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        /* Cinematic Separator */
-        .separator {
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+        /* Reveal Logic */
+        @keyframes reveal {
+          from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+          to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
+        .reveal { opacity: 0; }
+        .reveal-active { animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-        /* Mobile specific scroll shadow for filter bars */
-        .scroll-fade-right {
-          mask-image: linear-gradient(to right, black 85%, transparent 100%);
-        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
     </style>
 <script type="importmap">
 {
@@ -123,7 +137,6 @@
 </head>
 <body>
     <div class="grain"></div>
-    <div class="mesh-gradient"></div>
     <div id="root"></div>
 </body>
 </html>
